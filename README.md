@@ -87,21 +87,107 @@ We have installed the following Beats on these machines:
 - Metricbeats
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- Logbeats allows us to monitor the lof files or locations that are specified to collect log events to be fowarded for indexing. 
+- Metricbeats helps us monitor our servers metrics and statistics such as inbound and outbound traffic that can be output into Logstash.
 
 ### Using the Playbook
 
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
+- Copy the filebeat-config.yml file to /etc/ansible.
+- Update the filebeat-config.yml file to include the Elk-Server's IP at line 1106 and 1806.
+- Run the playbook, and navigate to http://104.43.249.22:5601 to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- Copy the metricbeat-config.yml file to /etc/ansible.
+- Update the metricbeat-config.yml file to include the Elk-Server's IP at line 62 and 95.
+- Run the playbook, and navigate to http://104.43.249.22:5601 to check that the installation worked as expected.
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
-Collapse
+- Name: filebeat-playbook.yml, located in /etc/ansible/roles
+- Run the file located in /etc/ansible/hosts to run the playbook on a specific machine. Specify in the /etc/ansible/hosts file the IP addresses of your servers under "[webservers]" and be sure to remove the "#" comment. Specify in /etc/ansible/hosts file the IP addresss of your Elk-Server under "[elk]" and be sure to remove the "#" comment.
+- Navigate to http://104.43.249.22:5601 to see that it is running. 
+
+- Name: metricbeat-playbook.yml, located in /etc/ansible/roles
+- Run the file located in /etc/ansible/hosts to run the playbook on a specific machine. Specify in the /etc/ansible/hosts file the IP addresses of your servers under "[webservers]" and be sure to remove the "#" comment. Specify in /etc/ansible/hosts file the IP addresss of your Elk-Server under "[elk]" and be sure to remove the "#" comment.
+- Navigate to http://104.43.249.22:5601 to see that it is running. 
+
+Filebeat
+- Run 'curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/filebeat-config.yml'   to download the filebeat-config.yml file.
+- Edit the file by running 'nano filebeat-config.yml'
+- Add the internal IP of the Elk-Server and specify port 5601.
+- Create the playbook by running 'nano filebeat-playbook.yml' and write the following script;
+
+---
+- name: installing and launching filebeat
+  hosts: webservers
+  become: yes
+  tasks:
+  
+  - name: download filebeat deb
+    command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+    
+  - name: install filebeat deb
+    command: dpkg -i filebeat-7.4.0-amd64.deb
+    
+  - name: drop in filebeat.yml
+    copy:
+      src: /etc/ansible/filebeat-config.yml
+      dest: /etc/filebeat/filebeat.yml
+      
+  - name: enable and configure system module
+    command: filebeat modules enable system
+    
+  - name: setup filebeat
+    command: filebeat setup
+    
+  - name: start filebeat service
+    command: service filebeat start
+    
+  - name: enable service filebeat on boot
+    systemd:
+      name: filebeat
+      enabled: yes
+      
+ - From within the same directory, run the playbook with the following command; 'ansible-playbook filebeat.playbook.yml'
+ - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working.
+
+Metricbeat
+ - Run 'curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/filebeat-config.yml'   to download the filebeat-config.yml file.
+- Edit the file by running 'nano metricbeat-config.yml'
+- Add the internal IP of the Elk-Server and specify port 5601.
+- Create the playbook by running 'nano metricbeat-playbook.yml' and write the following script;
+
+---
+- name: installing and launching metricbeat
+  hosts: webservers
+  become: yes
+  tasks:
+  
+  - name: download metricbeat deb
+    command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-amd64.deb
+    
+  - name: install metricbeat deb
+    command: dpkg -i metricbeat-7.4.0-amd64.deb
+    
+  - name: drop in metricbeat.yml
+    copy:
+      src: /etc/ansible/metricbeat-config.yml
+      dest: /etc/metricbeat/metricbeat.yml
+      
+  - name: enable and configure system module
+    command: metricbeat modules enable docker
+    
+  - name: setup metricbeat
+    command: metricbeat setup
+    
+  - name: start metricbeat service
+    command: service metricbeat start
+    
+  - name: enable service metricbeat on boot
+    systemd:
+      name: metricbeat
+      enabled: yes
+      
+ - From within the same directory, run the playbook with the following command; 'ansible-playbook filebeat.playbook.yml'
+ - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working.
+
