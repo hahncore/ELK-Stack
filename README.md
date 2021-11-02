@@ -4,7 +4,7 @@ A secure Azure server using ELK
 
 The files in this repository were used to configure the network depicted below.
 
-Images/CloudDiagram.drawio.png
+[Images/CloudDiagram.drawio.png](https://github.com/hahncore/ELK-Stack/blob/e6d7e90f224d107adfb030d95401303ba7abba6d/Images/CloudDiagram.drawio.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the playbook file may be used to install only certain pieces of it, such as Filebeat.
  
