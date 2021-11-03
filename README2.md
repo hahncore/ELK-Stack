@@ -99,18 +99,18 @@ In order to use the playbook, you will need to have an Ansible control node alre
 SSH into the control node and follow the steps below:
 - Nano into /etc/ansible/hosts to edit the "hosts" file in order for the playbook to run on the specific machine.
 - Specify the IP addresses of your Web VM's under "#[webservers]" as shown below. Be sure to remove the "#" comment
-  '10.0.0.9 ansible_python_interpreter=/usr/bin/python3'
-  '10.0.0.10 ansible_python_interpreter=/usr/bin/python3'
-  '10.0.0.12 ansible_python_interpreter=/usr/bin/python3'
+  - '10.0.0.9 ansible_python_interpreter=/usr/bin/python3'
+  - '10.0.0.10 ansible_python_interpreter=/usr/bin/python3'
+  - '10.0.0.12 ansible_python_interpreter=/usr/bin/python3'
 - Create a new "[elk]" group under the  Web VM's you just added and add the private IP as shown below of the ELK-Server.
-  '10.1.0.6 ansible_python_interpreter=/usr/bin/python3'
+  - '10.1.0.6 ansible_python_interpreter=/usr/bin/python3'
 - Save and Exit.
 
 Filebeat
-- Run 'curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/filebeat-config.yml'   to copy the filebeat-config.yml file to /etc/ansible.
+- Run 'curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/filebeat-config.yml' to copy the filebeat-config.yml file to /etc/ansible.
 - Use nano to update the filebeat-config.yml file to include the Elk-Server's IP at line 1106 and 1806 as shown below.
-    Line 1105 - 'hosts: ["10.1.0.6:9200"]'
-    Line 1806 - 'host: "10.1.0.6:5601"'
+  - Line 1105 'hosts: ["10.1.0.6:9200"]'
+  - Line 1806 'host: "10.1.0.6:5601"'
 - Save and exit.
 
 Name: filebeat-playbook.yml, located in /etc/ansible/roles
@@ -127,8 +127,8 @@ Name: filebeat-playbook.yml, located in /etc/ansible/roles
 Metricbeat
 - Run 'curl https://gist.githubusercontent.com/slape/58541585cc1886d2e26cd8be557ce04c/raw/0ce2c7e744c54513616966affb5e9d96f5e12f73/metricbeat > /etc/ansible/metricbeat-    config.yml' to copy the metricbeat-config.yml file to /etc/ansible.
 - Use nano to update the metricbeat-config.yml file to include the Elk-Server's IP at line 62 and 95 as shown below.
-   Line 62 - 'host: "10.1.0.6:5601"'
-   Line 95 - 'hosts: "[10.1.0.6:9200"]'
+  - Line 62 - 'host: "10.1.0.6:5601"'
+  - Line 95 - 'hosts: "[10.1.0.6:9200"]'
 - Save and exit.
 
 Name: metricbeat-playbook.yml, located in /etc/ansible/roles
