@@ -147,7 +147,6 @@ Name: filebeat-playbook.yml, located in /etc/ansible/roles
       name: filebeat
       enabled: yes
   
-  '''
  - Save and Exit. 
  - From within the same directory, run the playbook with the following command; 'ansible-playbook filebeat-playbook.yml'
  - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working as shown below.
@@ -195,9 +194,9 @@ Name: metricbeat-playbook.yml, located in /etc/ansible/roles
       name: metricbeat
       enabled: yes
   
-  '''
  - Save and exit.
  - From within the same directory, run the playbook with the following command; 'ansible-playbook metricbeat-playbook.yml'
  - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working as shown below.
+ 
    [Images/metric.png](https://github.com/hahncore/ELK-Stack/blob/3a2d9111d8b357ed3ea92c27613c30e7f765c5bf/Images/metric.PNG)
 
