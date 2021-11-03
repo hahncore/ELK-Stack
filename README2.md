@@ -115,37 +115,9 @@ Filebeat
 
 Name: filebeat-playbook.yml, located in /etc/ansible/roles
 - Create the playbook by running 'nano filebeat-playbook.yml' and write the following script;
-'
-- name: installing and launching filebeat
-  hosts: webservers
-  become: yes
-  tasks:
 
-  - name: download filebeat deb
-    command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+[Ansible/filebeat-playbook.yml](https://github.com/hahncore/ELK-Stack/blob/d746d38ac82030add2dc741592289a9bb2e4437a/Ansible/filebeat-playbook.yml)
 
-  - name: install filebeat deb
-    command: dpkg -i filebeat-7.4.0-amd64.deb
-
-  - name: drop in filebeat.yml
-    copy:
-      src: /etc/ansible/filebeat-config.yml
-      dest: /etc/filebeat/filebeat.yml
-
-  - name: enable and configure system module
-    command: filebeat modules enable system
-
-  - name: setup filebeat
-    command: filebeat setup
-
-  - name: start filebeat service
-    command: service filebeat start
-
-  - name: enable service filebeat on boot
-    systemd:
-      name: filebeat
-      enabled: yes
-  '
  - Save and Exit.
  - From within the same directory, run the playbook with the following command; 'ansible-playbook filebeat-playbook.yml'
  - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working as shown below.
@@ -161,38 +133,8 @@ Metricbeat
 
 Name: metricbeat-playbook.yml, located in /etc/ansible/roles
 - Create the playbook by running 'nano metricbeat-playbook.yml' and write the following script;
+[Ansible/metricbeat-playbook.yml](https://github.com/hahncore/ELK-Stack/blob/d746d38ac82030add2dc741592289a9bb2e4437a/Ansible/metricbeat-playbook.yml)
 
-'
-- name: installing and launching metricbeat
-  hosts: webservers
-  become: yes
-  tasks:
-
-  - name: download metricbeat deb
-    command: curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.4.0-amd64.deb
-
-  - name: install metricbeat deb
-    command: dpkg -i metricbeat-7.4.0-amd64.deb
-
-  - name: drop in metricbeat.yml
-    copy:
-      src: /etc/ansible/metricbeat-config.yml
-      dest: /etc/metricbeat/metricbeat.yml
-
-  - name: enable and configure system module
-    command: metricbeat modules enable docker
-
-  - name: setup metricbeat
-    command: metricbeat setup
-
-  - name: start metricbeat service
-    command: service metricbeat start
-
-  - name: enable service metricbeat on boot
-    systemd:
-      name: metricbeat
-      enabled: yes
-'
 - Save and exit.
 - From within the same directory, run the playbook with the following command; 'ansible-playbook metricbeat-playbook.yml'
 - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working as shown below.
