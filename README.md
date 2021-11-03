@@ -106,7 +106,6 @@ SSH into the control node and follow the steps below:
   - '10.1.0.6 ansible_python_interpreter=/usr/bin/python3'
 - Save and Exit.
 
-Filebeat
 Name: filebeat-config.yml located in /etc/ansible.
 - Run 'curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/filebeat-config.yml' to copy the filebeat-config.yml file to /etc/ansible.
 - Use nano to update the filebeat-config.yml file to include the Elk-Server's IP at line 1106 and 1806 as shown below.
@@ -123,7 +122,6 @@ Name: filebeat-playbook.yml, located in /etc/ansible/roles
 - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working as shown in the image below.
   - [Images/filebeat.png](https://github.com/hahncore/ELK-Stack/blob/3a2d9111d8b357ed3ea92c27613c30e7f765c5bf/Images/filebeat.PNG)
 
-Metricbeat
 Name: metricbeat-config.yml located in /etc/ansible.
 - Run 'curl https://gist.githubusercontent.com/slape/58541585cc1886d2e26cd8be557ce04c/raw/0ce2c7e744c54513616966affb5e9d96f5e12f73/metricbeat > /etc/ansible/metricbeat-    config.yml' to copy the metricbeat-config.yml file to /etc/ansible.
 - Use nano to update the metricbeat-config.yml file to include the Elk-Server's IP at line 62 and 95 as shown below.
