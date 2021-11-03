@@ -122,7 +122,7 @@ Name: filebeat-playbook.yml, located in /etc/ansible/roles
  - From within the same directory, run the playbook with the following command; 'ansible-playbook filebeat-playbook.yml'
  - Navigate to http://104.43.249.22:5601 to ensure the playbook ran correctly and is working as shown below.
 
- [Images/filebeat.png](https://github.com/hahncore/ELK-Stack/blob/3a2d9111d8b357ed3ea92c27613c30e7f765c5bf/Images/filebeat.PNG)
+[Images/filebeat.png](https://github.com/hahncore/ELK-Stack/blob/3a2d9111d8b357ed3ea92c27613c30e7f765c5bf/Images/filebeat.PNG)
 
 Metricbeat
 - Run 'curl https://gist.githubusercontent.com/slape/58541585cc1886d2e26cd8be557ce04c/raw/0ce2c7e744c54513616966affb5e9d96f5e12f73/metricbeat > /etc/ansible/metricbeat-    config.yml' to copy the metricbeat-config.yml file to /etc/ansible.
@@ -133,6 +133,7 @@ Metricbeat
 
 Name: metricbeat-playbook.yml, located in /etc/ansible/roles
 - Create the playbook by running 'nano metricbeat-playbook.yml' and write the following script;
+
 [Ansible/metricbeat-playbook.yml](https://github.com/hahncore/ELK-Stack/blob/d746d38ac82030add2dc741592289a9bb2e4437a/Ansible/metricbeat-playbook.yml)
 
 - Save and exit.
